@@ -3,6 +3,7 @@ package org.example.Service;
 import org.example.Exception.IdenticalDataException;
 import org.example.Exception.MaximumDataException;
 import org.example.Exception.NotFoundException;
+import org.example.Model.Student;
 import org.example.Model.Subject;
 import org.example.Repo.IRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +82,14 @@ public class SubjectService implements IService<Subject> {
                 throw new MaximumDataException("Kapasitas maksimum data subjek sudah terpenuhi");
             }
             else{
+
+                for(Subject subject: subjects1){
+                    for(Subject subject1: subjects){
+                        if(subject.getSubject_name().equals(subject1.getSubject_name())){
+                            throw new IdenticalDataException("Subject name cannot be identical");
+                        }
+                    }
+                }
 
                 List<Subject> subjects2 = repoSubject.AddBulk(subjects);
                 return subjects2;
