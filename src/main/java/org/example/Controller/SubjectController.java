@@ -1,5 +1,6 @@
 package org.example.Controller;
 
+import org.example.Model.Response.SuccessResponse;
 import org.example.Model.Student;
 import org.example.Model.Subject;
 import org.example.Service.IService;
@@ -24,13 +25,7 @@ public class SubjectController {
     @GetMapping
     public ResponseEntity getAllSubject() throws Exception {
         List<Subject> subjects = serviceSubject.getAll();
-        if(subjects.isEmpty()){
-            return ResponseEntity.status(HttpStatus.OK).body("Data masih kosong");
-        }
-        else {
-            return ResponseEntity.status(HttpStatus.OK).body(subjects);
-
-        }
+        return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<List<Subject>>("Get All Succeed", subjects));
     }
 
     @PostMapping
@@ -38,7 +33,7 @@ public class SubjectController {
         Subject subject1 = new Subject();
         subject1 = (Subject) serviceSubject.create(subject);
         System.out.println(subject1);
-        return ResponseEntity.status(HttpStatus.OK).body("sukses");
+        return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<Subject>("Add Subject Succeed", subject1));
     }
 
 
@@ -46,12 +41,25 @@ public class SubjectController {
     public ResponseEntity getById(@PathVariable String id) throws Exception {
 
         Optional<Subject> subjects = serviceSubject.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<Optional<Subject>>("Get by Id Succeed", subjects));
+    }
 
-        if (subjects.isEmpty()){
-            return ResponseEntity.status(HttpStatus.OK).body("Data tidak ditemukan");
-        }
-        else{return ResponseEntity.status(HttpStatus.OK).body(subjects);}
+    @PostMapping("/bulk")
+    public ResponseEntity addBulkSubject(@RequestBody List<Subject> subjects) throws Exception {
+        List<Subject> subjects1 =  serviceSubject.AddBulk(subjects);
+        return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<List<Subject>>("Add Bulk Subject Succeed", subjects1));
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteById(@PathVariable String id) throws Exception {
+        serviceSubject.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<String>("Delete Succeed","Id subjek yang terhapus: "+ id ));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity updateById(@RequestBody Subject subject, @PathVariable String id) throws Exception {
+        serviceSubject.update(subject, id);
+        return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<Subject>("Update Succeed",subject));
     }
 
 

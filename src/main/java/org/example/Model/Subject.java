@@ -12,7 +12,7 @@ public class Subject {
     }
 
     public void setId(String id) {
-        Id = id;
+        this.Id = id;
     }
 
     public String getSubject_name() {

@@ -15,7 +15,7 @@ public class Teacher {
     }
 
     public void setId(String id) {
-        Id = id;
+        this.Id = id;
     }
 
     public String getFirst_name() {

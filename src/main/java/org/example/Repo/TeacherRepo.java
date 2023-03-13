@@ -1,5 +1,6 @@
 package org.example.Repo;
 
+import org.example.Model.Student;
 import org.example.Model.Subject;
 import org.example.Model.Teacher;
 import org.example.Util.RandomUUID;
@@ -40,5 +41,39 @@ public class TeacherRepo implements IRepo<Teacher>{
             }
         }
         return Optional.empty();
+    }
+
+    @Override
+    public List<Teacher> AddBulk(List<Teacher> teachers1) throws Exception {
+        for(Teacher teacher: teachers1){
+            teacher.setId(randomUUID.Random());
+        }
+        teachers.addAll(teachers1);
+        return teachers1;
+
+    }
+
+    @Override
+    public void update(Teacher teacher, String Id) throws Exception {
+        for(Teacher teacher1: teachers){
+            if(teacher1.getId().equals(Id)){
+                teacher1.setFirst_name(teacher.getFirst_name());
+                teacher1.setLast_name(teacher.getLast_name());
+                teacher1.setEmail(teacher.getEmail());
+                Optional.of(teacher1);
+                break;
+            }
+
+        }
+
+    }
+
+    @Override
+    public void delete(String Id) throws Exception {
+        for(Teacher teacher: teachers){
+            teachers.remove(teacher);
+            break;
+        }
+
     }
 }

@@ -43,4 +43,38 @@ List<Student> students= new ArrayList<>();
 
     }
 
+    @Override
+    public List<Student> AddBulk(List<Student> students1) throws Exception {
+        for(Student student: students1){
+            student.setId(randomUUID.Random());
+        }
+        students.addAll(students1);
+        return students1;
+
+    }
+
+    @Override
+    public void update(Student student, String Id) throws Exception {
+        for(Student student1: students){
+            if(student1.getId().equals(Id)){
+                student1.setFirst_name(student.getFirst_name());
+                student1.setLast_name(student.getLast_name());
+                student1.setEmail(student.getEmail());
+                Optional.of(student1);
+                break;
+            }
+
+        }
+
+    }
+
+    @Override
+    public void delete(String Id) throws Exception {
+        for(Student student: students){
+            students.remove(student);
+            break;
+        }
+
+    }
+
 }

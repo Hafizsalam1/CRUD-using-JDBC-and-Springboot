@@ -1,5 +1,6 @@
 package org.example.Controller;
 
+import org.example.Model.Response.SuccessResponse;
 import org.example.Model.Student;
 import org.example.Service.IService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +24,8 @@ public class StudentController {
     @GetMapping
     public ResponseEntity getAllStudent() throws Exception {
         List<Student> students = serviceStudent.getAll();
-        if(students.isEmpty()){
-            return ResponseEntity.status(HttpStatus.OK).body("Data masih kosong");
-        }
-        else {
-            return ResponseEntity.status(HttpStatus.OK).body(students);
+            return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<List<Student>>("Get All Succeed", students));
 
-        }
     }
 
     @PostMapping
@@ -37,7 +33,7 @@ public class StudentController {
         Student student1 = new Student();
         student1 = (Student) serviceStudent.create(student);
         System.out.println(student1);
-        return ResponseEntity.status(HttpStatus.OK).body("sukses");
+        return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<Student>("Add Student Succeed", student1));
     }
 
     @GetMapping("/{id}")
@@ -45,12 +41,29 @@ public class StudentController {
 
         Optional<Student> students = serviceStudent.findById(id);
 
-        if (students.isEmpty()){
-            return ResponseEntity.status(HttpStatus.OK).body("Data tidak ditemukan");
-        }
-        else{return ResponseEntity.status(HttpStatus.OK).body(students);}
+       return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<Optional<Student>>("Get by Id Succeed", students));
 
     }
+
+    @PostMapping("/bulk")
+    public ResponseEntity addBulkStudent(@RequestBody List<Student> students) throws Exception {
+        List<Student> students1 =  serviceStudent.AddBulk(students);
+        return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<List<Student>>("Add Bulk Student Succeed", students1));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteById(@PathVariable String id) throws Exception {
+        serviceStudent.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<String>("Delete Succeed","Id student yang terhapus: " + id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity updateById(@RequestBody Student student, @PathVariable String id) throws Exception {
+        serviceStudent.update(student, id);
+        return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<Student>("Update Succeed",student));
+    }
+
+
 
 
 }

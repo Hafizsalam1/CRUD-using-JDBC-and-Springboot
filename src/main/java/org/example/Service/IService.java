@@ -12,4 +12,11 @@ public interface IService<T> {
 
     public Optional<T> findById(String Id) throws Exception;
 
+    public List<T> AddBulk(List<T> params) throws Exception;
+
+    public void update(T params, String Id) throws Exception;
+
+    public void delete(String Id) throws Exception;
+
+
 }

@@ -16,7 +16,7 @@ import java.util.Optional;
 @Qualifier("Subject")
 public class SubjectRepo implements IRepo<Subject> {
 
-    List <Subject> subjects = new ArrayList<>();
+    List<Subject> subjects = new ArrayList<>();
 
     @Autowired
     RandomUUID randomUUID;
@@ -35,12 +35,45 @@ public class SubjectRepo implements IRepo<Subject> {
 
     @Override
     public Optional findById(String Id) throws Exception {
-        for(Subject subject: subjects){
-            if(subject.getId().equals(Id)){
+        for (Subject subject : subjects) {
+            if (subject.getId().equals(Id)) {
                 return Optional.of(subject);
             }
         }
         return Optional.empty();
+
+    }
+
+    @Override
+    public List<Subject> AddBulk(List<Subject> subjects1) throws Exception {
+        for(Subject subject: subjects1){
+            subject.setId(randomUUID.Random());
+        }
+        subjects.addAll(subjects1);
+        return subjects1;
+
+    }
+
+    @Override
+    public void update(Subject subject, String Id) throws Exception {
+        for(Subject subject1: subjects){
+            if(subject1.getId().equals(Id)){
+                subject1.setSubject_name(subject1.getSubject_name());
+                Optional.of(subject1);
+                break;
+            }
+
+        }
+
+    }
+
+    @Override
+    public void delete(String Id) throws Exception {
+        for(Subject subject: subjects){
+            subjects.remove(subject);
+            break;
+        }
+
 
     }
 }
