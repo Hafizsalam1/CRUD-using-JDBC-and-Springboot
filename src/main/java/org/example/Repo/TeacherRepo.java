@@ -58,11 +58,11 @@ public class TeacherRepo implements IRepo<Teacher>{
         List <Teacher> getAll = getAll();
         for(Teacher teacher1: getAll){
             if(teacher1.getId().equals(Id)){
-                teacher1.setFirst_name(teacher.getFirst_name());
-                teacher1.setLast_name(teacher.getLast_name());
-                teacher1.setEmail(teacher.getEmail());
-                teacher1.setId(Id);
-                Optional.of(teacher1);
+//                teacher1.setFirst_name(teacher.getFirst_name());
+//                teacher1.setLast_name(teacher.getLast_name());
+//                teacher1.setEmail(teacher.getEmail());
+                teacher.setId(Id);
+                Optional.of(teacher);
                 break;
             }
 

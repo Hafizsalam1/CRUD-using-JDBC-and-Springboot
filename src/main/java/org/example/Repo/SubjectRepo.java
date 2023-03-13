@@ -59,9 +59,8 @@ public class SubjectRepo implements IRepo<Subject> {
         List <Subject> getAll = getAll();
         for(Subject subject1: getAll){
             if(subject1.getId().equals(Id)){
-                subject1.setSubject_name(subject.getSubject_name());
-                subject1.setId(Id);
-                Optional.of(subject1);
+                subject.setId(Id);
+                Optional.of(subject);
                 break;
             }
 
