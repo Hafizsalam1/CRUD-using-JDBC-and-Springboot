@@ -91,6 +91,7 @@ public class SubjectService implements IService<Subject> {
                     }
                 }
 
+
                 List<Subject> subjects2 = repoSubject.AddBulk(subjects);
                 return subjects2;
             }
@@ -107,7 +108,7 @@ public class SubjectService implements IService<Subject> {
             List<Subject> subjects = repoSubject.getAll();
             List<Subject> subjects1 = new ArrayList<Subject>();
             for(Subject subject1: subjects){
-                if(subject.getId().equals(Id)){
+                if(subject1.getId().equals(Id)){
                     subjects1.add(subject1);
                 }
             }

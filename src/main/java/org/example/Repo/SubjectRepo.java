@@ -56,9 +56,11 @@ public class SubjectRepo implements IRepo<Subject> {
 
     @Override
     public void update(Subject subject, String Id) throws Exception {
-        for(Subject subject1: subjects){
+        List <Subject> getAll = getAll();
+        for(Subject subject1: getAll){
             if(subject1.getId().equals(Id)){
-                subject1.setSubject_name(subject1.getSubject_name());
+                subject1.setSubject_name(subject.getSubject_name());
+                subject1.setId(Id);
                 Optional.of(subject1);
                 break;
             }

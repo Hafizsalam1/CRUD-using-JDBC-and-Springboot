@@ -1,6 +1,7 @@
 package org.example.Repo;
 
 import org.example.Model.Student;
+import org.example.Model.Subject;
 import org.example.Util.RandomUUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -55,11 +56,13 @@ List<Student> students= new ArrayList<>();
 
     @Override
     public void update(Student student, String Id) throws Exception {
-        for(Student student1: students){
+        List <Student> getAll = getAll();
+        for(Student student1: getAll){
             if(student1.getId().equals(Id)){
                 student1.setFirst_name(student.getFirst_name());
                 student1.setLast_name(student.getLast_name());
                 student1.setEmail(student.getEmail());
+                student1.setId(Id);
                 Optional.of(student1);
                 break;
             }

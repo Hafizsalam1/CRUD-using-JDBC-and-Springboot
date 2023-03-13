@@ -55,11 +55,13 @@ public class TeacherRepo implements IRepo<Teacher>{
 
     @Override
     public void update(Teacher teacher, String Id) throws Exception {
-        for(Teacher teacher1: teachers){
+        List <Teacher> getAll = getAll();
+        for(Teacher teacher1: getAll){
             if(teacher1.getId().equals(Id)){
                 teacher1.setFirst_name(teacher.getFirst_name());
                 teacher1.setLast_name(teacher.getLast_name());
                 teacher1.setEmail(teacher.getEmail());
+                teacher1.setId(Id);
                 Optional.of(teacher1);
                 break;
             }
